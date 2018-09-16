@@ -59,3 +59,7 @@ export const getNextPlayerId = (rootState: RootState) => {
   const allPlayersIds = getAllPlayerIds(rootState);
   return getNext(allPlayersIds)(currentPlayerId);
 };
+
+export const isCurrentPlayerId = (playerId: Id) => (rootState: RootState) => {
+  return getCurrentPlayerId(rootState) === playerId;
+};

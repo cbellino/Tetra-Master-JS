@@ -3,6 +3,7 @@ import {
   getPlayer,
   getPlayerAtIndex,
   getPlayerIdAtIndex,
+  isCurrentPlayerId,
 } from "./players.selectors";
 
 describe("getAllPlayersIds", () => {
@@ -102,5 +103,29 @@ describe("getPlayerIdAtIndex", () => {
       },
     };
     expect(getPlayerIdAtIndex(2)(state)).toBeUndefined();
+  });
+});
+
+describe("isCurrentPlayerId", () => {
+  describe("when the id matches the current player", () => {
+    it("should return true", () => {
+      const state: any = {
+        turn: {
+          currentPlayerId: "1",
+        },
+      };
+      expect(isCurrentPlayerId("1")(state)).toBeTruthy();
+    });
+  });
+
+  describe("when the id matches current player", () => {
+    it("should return false", () => {
+      const state: any = {
+        turn: {
+          currentPlayerId: undefined,
+        },
+      };
+      expect(isCurrentPlayerId("1")(state)).toBeFalsy();
+    });
   });
 });

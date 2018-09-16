@@ -1,10 +1,15 @@
 .player-hand {
   position: absolute;
   top: 0;
+  bottom: 50px;
   width: 100px;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0 32px;
+}
+
+.player-hand .player-name {
+  min-height: 64px;
 }
 
 .player-hand .tile {
@@ -17,4 +22,9 @@
 
 .player-hand.player-2 {
   right: 0;
+}
+
+.player-hand.is-playing .player-name:after {
+  display: block;
+  content: '(active)';
 }

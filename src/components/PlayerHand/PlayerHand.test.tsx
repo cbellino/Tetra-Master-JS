@@ -22,6 +22,17 @@ describe("PlayerHand", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  describe("when the player is playing", () => {
+    it("should have a className of 'is-playing'", () => {
+      const wrapper = shallow(
+        <PlayerHand player={mockPlayer} isPlaying />,
+      ).dive();
+
+      expect(wrapper.hasClass("is-playing")).toBeTruthy();
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   describe("when the player has no tile in hand", () => {
     it("should display 0 tile", () => {
       const wrapper = shallow(<PlayerHand player={mockPlayer} />).dive();

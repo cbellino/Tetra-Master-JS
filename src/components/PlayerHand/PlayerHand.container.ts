@@ -1,18 +1,18 @@
 import { connect } from "react-redux";
 
-import { Id, Player } from "../../models";
-import { focusHandTile, getPlayer, selectHandTile } from "../../store";
-import { EnhancedPlayerHand, TileEventFn } from "./PlayerHand";
+import { Id } from "../../models";
+import {
+  focusHandTile,
+  getPlayer,
+  isCurrentPlayerId,
+  selectHandTile,
+} from "../../store";
+import { EnhancedPlayerHand, EnhancedPlayerHandProps } from "./PlayerHand";
 
 type OwnProps = {
   playerId: Id;
 };
-type MergeProps = {
-  player: Player;
-  onTileMouseEnter: TileEventFn;
-  onTileMouseLeave: TileEventFn;
-  onTileClick: TileEventFn;
-} & OwnProps;
+type MergeProps = EnhancedPlayerHandProps & OwnProps;
 
 const mergeProps = (
   stateProps,
@@ -24,10 +24,12 @@ const mergeProps = (
   const { playerId } = ownProps;
 
   const player = getPlayer(playerId)(state);
+  const isPlaying = isCurrentPlayerId(player.id)(state);
 
   return {
     ...ownProps,
     player,
+    isPlaying,
     onTileMouseEnter: ({ tileId }) => {
       dispatch(focusHandTile(playerId, tileId));
     },

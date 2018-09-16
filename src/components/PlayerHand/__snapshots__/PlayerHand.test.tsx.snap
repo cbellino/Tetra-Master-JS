@@ -99,3 +99,15 @@ exports[`PlayerHand when the player has no tile in hand should display 0 tile 1`
   </h2>
 </div>
 `;
+
+exports[`PlayerHand when the player is playing should have a className of 'is-playing' 1`] = `
+<div
+  className="player-hand player-1 is-playing"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+</div>
+`;

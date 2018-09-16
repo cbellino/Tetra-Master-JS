@@ -1,0 +1,25 @@
+exclude_patterns:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "features/"
+  - "**/node_modules/"
+  - "script/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "Tests/"
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
+  - "**/*.test.ts"
+
+plugins:
+  fixme:
+    enabled: true
+  shellcheck:
+    enabled: true
+  # Disabled due to https://github.com/tkqubo/codeclimate-tslint/issues/46
+  # tslint:
+  #   enabled: true
+  #   config: tslint.json

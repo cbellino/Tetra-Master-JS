@@ -25,7 +25,6 @@ const mapItemLens = (id: Id) => R.lensPath(["map", id]);
 const allLens = R.lensProp("all");
 
 // player
-export const playerLens = (id: Id) => R.lensProp(id);
 export const playerHandLens = (id: Id) => R.lensPath([id, "hand"]);
 export const playerFocusedTileLens = (id: Id) =>
   R.lensPath([id, "focusedTileId"]);

@@ -24,12 +24,12 @@ const withDefaultProps = defaultProps({
 });
 
 export const App: React.SFC<AppProps> = ({ initialized }) => (
-  <div>
+  <>
     <DebugBar initialized={initialized} />
     {initialized && <Board />}
     {initialized && <PlayerHand playerId="1" />}
     {initialized && <PlayerHand playerId="2" />}
-  </div>
+  </>
 );
 
 export const EnhancedApp = compose(

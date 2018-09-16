@@ -1,6 +1,9 @@
 /* FIXME: Make it work with various grid sizes */
 .board {
-  padding: 16px;
+  padding: 32px;
+  height: 100%;
+  width: 400px;
+  margin: auto;
 }
 
 .grid {

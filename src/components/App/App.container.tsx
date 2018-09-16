@@ -20,8 +20,8 @@ const debugModeInitGame = () => (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
 
   // Create player 1 and 2
-  dispatch(addPlayer({ id: "1", name: "Player 1" }));
-  dispatch(addPlayer({ id: "2", name: "Player 2" }));
+  dispatch(addPlayer({ id: "1", name: "Player 1", selectedTileId: "1" }));
+  dispatch(addPlayer({ id: "2", name: "Player 2", selectedTileId: "6" }));
 
   // Give random cards to player 1 and 2
   const allPlayerIds = getAllPlayerIds(getState());

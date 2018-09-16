@@ -8,7 +8,7 @@ import { getRootState } from "../root.selectors";
 
 const currentPlayerIdLens = R.lensPath(["turn", "currentPlayerId"]);
 
-const getCurrentPlayerId = (rootState: RootState) =>
+export const getCurrentPlayerId = (rootState: RootState) =>
   R.view<RootState, Id>(currentPlayerIdLens)(rootState);
 
 export const getCurrentPlayer = createSelector(

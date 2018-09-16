@@ -1,11 +1,11 @@
 import * as R from "ramda";
-
 import { createSelector } from "reselect";
+
 import { Id, Player } from "../../models";
 import { RootState } from "../root.reducer";
 import { getRootState } from "../root.selectors";
-
-// TODO: Use reselect for memoization
+import { getNext } from "../shared";
+import { getCurrentPlayerId } from "../turn";
 
 const playersLens = R.lensPath(["players"]);
 const allLens = R.lensPath(["all"]);
@@ -51,4 +51,11 @@ export const getPlayerIdAtIndex = (index: number) => (rootState: RootState) => {
     // @ts-ignore
     R.view<RootState, Id>(playerIdAtIndexLens(index), rootState) || undefined
   );
+};
+
+// TODO: What if there is no currentPlayerId?
+export const getNextPlayerId = (rootState: RootState) => {
+  const currentPlayerId = getCurrentPlayerId(rootState);
+  const allPlayersIds = getAllPlayerIds(rootState);
+  return getNext(allPlayersIds)(currentPlayerId);
 };

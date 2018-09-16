@@ -44,7 +44,14 @@ describe("playersReducer", () => {
       };
       const action = {
         type: ADD_PLAYER,
-        payload: { player: { id: "1", name: "Player 1" } },
+        payload: {
+          player: {
+            id: "1",
+            name: "Player 1",
+            focusedTileId: "1",
+            selectedTileId: "1",
+          },
+        },
       };
 
       expect(playersReducer(state, action)).toEqual({
@@ -53,8 +60,8 @@ describe("playersReducer", () => {
             id: "1",
             name: "Player 1",
             hand: [],
-            focusedTileId: undefined,
-            selectedTileId: undefined,
+            focusedTileId: "1",
+            selectedTileId: "1",
           },
         },
         all: ["1"],

@@ -39,8 +39,8 @@ const addItemsToList = (items: any[]) => (list: any[]) => [...list, ...items];
 const addToList = (item: any) => addItemsToList([item]);
 type PartialPlayer = { id: Id; name: string };
 const createPlayer = (data: PartialPlayer): Player => ({
-  ...data,
   ...{ hand: [], focusedTileId: undefined, selectedTileId: undefined },
+  ...data,
 });
 
 const addTilesToHand = (payload: { playerId: Id; tileIds: Id[] }) => {

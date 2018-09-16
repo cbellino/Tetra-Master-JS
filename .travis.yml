@@ -1,13 +1,22 @@
 language: node_js
 node_js:
   - 10.10.0
+
 cache:
   yarn: true
   directories:
     - node_modules
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+
 script:
   - yarn test --coverage
+  - ./cc-test-reporter format-coverage -t lcov -o coverage/coverage-code-climate.json ./coverage/lcov.info
+  - ./cc-test-reporter upload-coverage -i ./coverage/coverage-code-climate.json
   - yarn build
+
 deploy:
   provider: firebase
   skip_cleanup: true

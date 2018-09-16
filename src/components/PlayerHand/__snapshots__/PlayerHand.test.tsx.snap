@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerHand should display the player name ('Player 1') 1`] = `
+<div
+  className="player-hand player-1"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+</div>
+`;
+
+exports[`PlayerHand should have a className containing the player id 1`] = `
+<div
+  className="player-hand player-1"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+</div>
+`;
+
+exports[`PlayerHand when the player has 2 tiles in hand should display 2 tiles 1`] = `
+<div
+  className="player-hand player-1"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+  <Connect(TileCard)
+    focused={false}
+    key="0"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    playerId="1"
+    selected={false}
+    tileId="1"
+  />
+  <Connect(TileCard)
+    focused={false}
+    key="1"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    playerId="1"
+    selected={false}
+    tileId="2"
+  />
+</div>
+`;
+
+exports[`PlayerHand when the player has 2 tiles in hand should react to mouse events 1`] = `
+<div
+  className="player-hand player-1"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+  <Connect(TileCard)
+    focused={false}
+    key="0"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    playerId="1"
+    selected={false}
+    tileId="1"
+  />
+  <Connect(TileCard)
+    focused={false}
+    key="1"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    playerId="1"
+    selected={false}
+    tileId="2"
+  />
+</div>
+`;
+
+exports[`PlayerHand when the player has no tile in hand should display 0 tile 1`] = `
+<div
+  className="player-hand player-1"
+>
+  <h2
+    className="player-name"
+  >
+    Player 1
+  </h2>
+</div>
+`;

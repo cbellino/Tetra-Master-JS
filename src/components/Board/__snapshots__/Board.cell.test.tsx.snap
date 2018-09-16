@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EnhancedBoardCell should display a tile with the correct tileId 1`] = `
+exports[`Board.Cell should display a tile with the correct tileId 1`] = `
 <div
   className="board-cell"
   onClick={[Function]}
@@ -13,7 +13,7 @@ exports[`EnhancedBoardCell should display a tile with the correct tileId 1`] = `
 </div>
 `;
 
-exports[`EnhancedBoardCell should react to clicks 1`] = `
+exports[`Board.Cell should react to clicks 1`] = `
 <div
   className="board-cell"
   onClick={[Function]}

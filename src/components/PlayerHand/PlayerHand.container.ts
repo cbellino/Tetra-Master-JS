@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { Id, Player } from "../../models";
 import { focusHandTile, getPlayer, selectHandTile } from "../../store";
-import { PlayerHand, TileEventFn } from "./PlayerHand";
+import { EnhancedPlayerHand, TileEventFn } from "./PlayerHand";
 
 type OwnProps = {
   playerId: Id;
@@ -46,4 +46,4 @@ const enhance = connect(
   mergeProps,
 );
 
-export default enhance(PlayerHand);
+export default enhance(EnhancedPlayerHand);

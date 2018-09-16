@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { getBoardGrid, placeCurrentPlayerTile } from "../../store";
 import { finishTurn } from "../../store/turn/turn.actions";
-import { Board } from "./Board";
+import { EnhancedBoard } from "./Board";
 
 const mapStateToProps = state => ({
   grid: getBoardGrid(state),
@@ -22,4 +22,4 @@ const enhance = connect(
   mapDispatchToProps,
 );
 
-export default enhance(Board);
+export default enhance(EnhancedBoard);

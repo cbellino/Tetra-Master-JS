@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board should have a className containing the player id 1`] = `
+<div
+  className="board"
+>
+  <div
+    className="grid"
+  >
+    <defaultProps(BoardCell)
+      cell={
+        Object {
+          "playerId": "1",
+          "tileId": "1",
+        }
+      }
+      key="0-0"
+      onClick={[Function]}
+      position={
+        Vector2 {
+          "x": 0,
+          "y": 0,
+        }
+      }
+    />
+    <defaultProps(BoardCell)
+      cell={
+        Object {
+          "playerId": "1",
+          "tileId": "1",
+        }
+      }
+      key="0-1"
+      onClick={[Function]}
+      position={
+        Vector2 {
+          "x": 0,
+          "y": 1,
+        }
+      }
+    />
+    <defaultProps(BoardCell)
+      cell={
+        Object {
+          "playerId": "1",
+          "tileId": "1",
+        }
+      }
+      key="1-0"
+      onClick={[Function]}
+      position={
+        Vector2 {
+          "x": 1,
+          "y": 0,
+        }
+      }
+    />
+    <defaultProps(BoardCell)
+      cell={
+        Object {
+          "playerId": "1",
+          "tileId": "1",
+        }
+      }
+      key="1-1"
+      onClick={[Function]}
+      position={
+        Vector2 {
+          "x": 1,
+          "y": 1,
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Board when the grid is empty should not display any cell 1`] = `
+<div
+  className="board"
+>
+  <div
+    className="grid"
+  />
+</div>
+`;

@@ -2,14 +2,14 @@ import { shallow } from "enzyme";
 import * as React from "react";
 
 import TileCard from "../TileCard";
-import { EnhancedBoardCell } from "./Board.Cell";
+import { EnhancedBoardCell as Cell } from "./Board.Cell";
 
 const mockCell = { playerId: "1", tileId: "1" };
 
-describe("EnhancedBoardCell", () => {
+describe("Board.Cell", () => {
   it("should display a tile with the correct tileId", () => {
     const wrapper = shallow(
-      <EnhancedBoardCell cell={mockCell} position={{ x: 1, y: 1 }} />,
+      <Cell cell={mockCell} position={{ x: 1, y: 1 }} />,
     ).dive();
 
     expect(wrapper.find(TileCard)).toHaveLength(1);
@@ -20,11 +20,7 @@ describe("EnhancedBoardCell", () => {
   it("should react to clicks", () => {
     const onClick = jest.fn();
     const wrapper = shallow(
-      <EnhancedBoardCell
-        cell={mockCell}
-        position={{ x: 1, y: 1 }}
-        onClick={onClick}
-      />,
+      <Cell cell={mockCell} position={{ x: 1, y: 1 }} onClick={onClick} />,
     ).dive();
 
     wrapper.find("div").simulate("click");

@@ -7,7 +7,10 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
-    "deploy": "firebase deploy --token $FIREBASE_TOKEN"
+    "deploy": "firebase deploy --token $FIREBASE_TOKEN",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
+    "tslint": "tslint --fix -c tslint.json --project tsconfig.json 'src/**/*.{ts,tsx}'",
+    "lint": "yarn prettier && yarn tslint"
   },
   "dependencies": {
     "classnames": "^2.2.6",

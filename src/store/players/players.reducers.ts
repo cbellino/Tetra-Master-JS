@@ -2,6 +2,7 @@ import * as R from "ramda";
 import { combineReducers } from "redux";
 
 import { Id, Player } from "../../models";
+import { PLACE_TILE } from "../board";
 import {
   ADD_PLAYER,
   ADD_TILE_TO_HAND,
@@ -84,10 +85,23 @@ const allReducer = (playerAll: Id[] = [], action) => {
   return playerAll;
 };
 
+// FIXME: Replace this crappy code by something robust.
+const tempRemoveTileFromHand = payload => players => {
+  const player = players.map[payload.playerId];
+  const hand = player.hand.filter(tileId => tileId !== payload.tileId);
+  return R.compose(
+    R.assocPath(["map", payload.playerId, "hand"], hand),
+    R.assocPath(["map", payload.playerId, "selectedTileId"], undefined),
+    R.assocPath(["map", payload.playerId, "focusedTileId"], undefined),
+  )(players);
+};
+
 const crossSliceReducer = (players: PlayersState, action) => {
   switch (action.type) {
     case ADD_PLAYER:
       return addPlayerReducer(action.payload)(players);
+    case PLACE_TILE:
+      return tempRemoveTileFromHand(action.payload)(players);
   }
   return players;
 };
@@ -97,9 +111,9 @@ const combinedReducer = combineReducers({
   all: allReducer,
 });
 
-export function playersReducer(state, action) {
+export const playersReducer = rootState => (state, action) => {
   const intermediateState = combinedReducer(state, action);
   // @ts-ignore: Not sure what is going on here...
   const finalState = crossSliceReducer(intermediateState, action);
   return finalState;
-}
+};

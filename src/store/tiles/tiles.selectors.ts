@@ -17,6 +17,15 @@ const mockTiles = [
   { id: "4", typeId: "4" },
   { id: "5", typeId: "3" },
   { id: "6", typeId: "2" },
+  { id: "7", typeId: "1" },
+  { id: "8", typeId: "2" },
+  { id: "9", typeId: "4" },
+  { id: "10", typeId: "4" },
+  { id: "11", typeId: "3" },
+  { id: "12", typeId: "2" },
+  { id: "13", typeId: "4" },
+  { id: "14", typeId: "3" },
+  { id: "15", typeId: "2" },
 ];
 export const getTile = (tileId: Id) => (rootState: RootState) => {
   return mockTiles.find(tile => tile.id === tileId);

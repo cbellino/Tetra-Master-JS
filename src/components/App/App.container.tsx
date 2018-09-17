@@ -25,8 +25,10 @@ const debugModeInitGame = (dispatch, getState) => {
 
   // Give random cards to player 1 and 2
   const allPlayerIds = getAllPlayerIds(getState());
-  dispatch(addTilesToPlayerHand(allPlayerIds[0], ["1", "2", "3"]));
-  dispatch(addTilesToPlayerHand(allPlayerIds[1], ["4", "5", "6"]));
+  dispatch(addTilesToPlayerHand(allPlayerIds[0], ["1", "2", "3", "4", "5"]));
+  dispatch(
+    addTilesToPlayerHand(allPlayerIds[1], ["11", "12", "13", "14", "15"]),
+  );
 
   dispatch(startTurn("1"));
 };

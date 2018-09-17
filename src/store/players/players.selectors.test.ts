@@ -1,4 +1,5 @@
 import {
+  currentPlayerHasTileSelected,
   getAllPlayerIds,
   getPlayer,
   getPlayerAtIndex,
@@ -8,124 +9,172 @@ import {
 
 describe("getAllPlayersIds", () => {
   it("should return ['1', '2']", () => {
-    const state: any = {
+    const rootState: any = {
       players: { all: ["1", "2"] },
     };
-    expect(getAllPlayerIds(state)).toEqual(["1", "2"]);
+
+    expect(getAllPlayerIds(rootState)).toEqual(["1", "2"]);
   });
 
   it("should return []", () => {
-    const state: any = {
+    const rootState: any = {
       players: {},
     };
-    expect(getAllPlayerIds(state)).toEqual([]);
+
+    expect(getAllPlayerIds(rootState)).toEqual([]);
   });
 });
 
 describe("getAllPlayerIds", () => {
   it("should return ['1', '2']", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         all: ["1", "2"],
       },
     };
-    expect(getAllPlayerIds(state)).toEqual(["1", "2"]);
+
+    expect(getAllPlayerIds(rootState)).toEqual(["1", "2"]);
   });
 
   it("should return []", () => {
-    const state: any = {
+    const rootState: any = {
       players: {},
     };
-    expect(getAllPlayerIds(state)).toEqual([]);
+
+    expect(getAllPlayerIds(rootState)).toEqual([]);
   });
 });
 
 describe("getPlayer", () => {
   it("should return { name: 'Player 1' }", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: { "1": { name: "Player 1" } },
         all: ["1", "2"],
       },
     };
-    expect(getPlayer("1")(state)).toEqual({ name: "Player 1" });
+
+    expect(getPlayer("1")(rootState)).toEqual({ name: "Player 1" });
   });
 
   it("should return undefined", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: {},
         all: ["1", "2"],
       },
     };
-    expect(getPlayer("1")(state)).toBeUndefined();
+
+    expect(getPlayer("1")(rootState)).toBeUndefined();
   });
 });
 
 describe("getPlayerAtIndex", () => {
   it("should return { name: 'Player 1' }", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: { "1": { name: "Player 1" } },
         all: ["1", "2"],
       },
     };
-    expect(getPlayerAtIndex(0)(state)).toEqual({ name: "Player 1" });
+
+    expect(getPlayerAtIndex(0)(rootState)).toEqual({ name: "Player 1" });
   });
 
   it("should return undefined", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: { "1": { name: "Player 1" } },
         all: ["1", "2"],
       },
     };
-    expect(getPlayerAtIndex(2)(state)).toBeUndefined();
+
+    expect(getPlayerAtIndex(2)(rootState)).toBeUndefined();
   });
 });
 
 describe("getPlayerIdAtIndex", () => {
   it("should return '1'", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: { "1": { hand: ["1", "2"] } },
         all: ["1", "2"],
       },
     };
-    expect(getPlayerIdAtIndex(0)(state)).toEqual("1");
+
+    expect(getPlayerIdAtIndex(0)(rootState)).toEqual("1");
   });
 
   it("should return undefined", () => {
-    const state: any = {
+    const rootState: any = {
       players: {
         map: { "1": {} },
         all: ["1", "2"],
       },
     };
-    expect(getPlayerIdAtIndex(2)(state)).toBeUndefined();
+
+    expect(getPlayerIdAtIndex(2)(rootState)).toBeUndefined();
   });
 });
 
 describe("isCurrentPlayerId", () => {
   describe("when the id matches the current player", () => {
     it("should return true", () => {
-      const state: any = {
+      const rootState: any = {
         turn: {
           currentPlayerId: "1",
         },
       };
-      expect(isCurrentPlayerId("1")(state)).toBeTruthy();
+
+      expect(isCurrentPlayerId("1")(rootState)).toBeTruthy();
     });
   });
 
   describe("when the id matches current player", () => {
     it("should return false", () => {
-      const state: any = {
+      const rootState: any = {
         turn: {
           currentPlayerId: undefined,
         },
       };
-      expect(isCurrentPlayerId("1")(state)).toBeFalsy();
+
+      expect(isCurrentPlayerId("1")(rootState)).toBeFalsy();
+    });
+  });
+});
+
+describe("hasTileSelected", () => {
+  describe("when the player has no selectedTileId", () => {
+    it("should return false", () => {
+      const rootState: any = {
+        players: {
+          map: {
+            "1": { selectedTileId: undefined },
+          },
+        },
+        turn: {
+          currentPlayerId: "1",
+        },
+      };
+
+      expect(currentPlayerHasTileSelected(rootState)).toBeFalsy();
+    });
+  });
+
+  describe("when the player has a selectedTileId", () => {
+    it("should return true", () => {
+      const rootState: any = {
+        players: {
+          map: {
+            "1": { selectedTileId: "1" },
+          },
+        },
+        turn: {
+          currentPlayerId: "1",
+        },
+      };
+
+      expect(currentPlayerHasTileSelected(rootState)).toBeTruthy();
     });
   });
 });

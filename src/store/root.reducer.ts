@@ -13,7 +13,7 @@ export type RootState = {
 const rootReducer = (rootState, action) =>
   combineReducers({
     board: boardReducer(rootState),
-    players: playersReducer,
+    players: playersReducer(rootState),
     turn: turnReducer(rootState),
   })(rootState, action);
 

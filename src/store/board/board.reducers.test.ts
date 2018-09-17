@@ -27,7 +27,7 @@ describe("boardReducer", () => {
   });
 
   describe("PLACE_TILE action", () => {
-    it("should set the player's hand to ['1', '2', '3']", () => {
+    it("should add the tile to the board's grid", () => {
       const rootState: any = {
         board: {
           grid: [[{}, {}], [{}, {}]],

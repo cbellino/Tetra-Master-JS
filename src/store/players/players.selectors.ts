@@ -57,9 +57,22 @@ export const getPlayerIdAtIndex = (index: number) => (rootState: RootState) => {
 export const getNextPlayerId = (rootState: RootState) => {
   const currentPlayerId = getCurrentPlayerId(rootState);
   const allPlayersIds = getAllPlayerIds(rootState);
+
   return getNext(allPlayersIds)(currentPlayerId);
 };
 
 export const isCurrentPlayerId = (playerId: Id) => (rootState: RootState) => {
   return getCurrentPlayerId(rootState) === playerId;
+};
+
+export const currentPlayerHasTileSelected = (rootState: RootState) => {
+  return R.pipe(
+    R.compose(
+      getPlayer,
+      getCurrentPlayerId,
+    )(rootState),
+    R.prop("selectedTileId"),
+    R.equals(undefined),
+    R.not,
+  )(rootState);
 };

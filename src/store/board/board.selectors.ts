@@ -1,11 +1,5 @@
-import { createSelector } from "reselect";
+import { viewOr } from "../../lib";
+import { Grid, Selector } from "../../models";
+import { boardGridLens } from "./board.lenses";
 
-import { RootState } from "../root.reducer";
-import { BoardState } from "./board.reducers";
-
-const getBoardRoot = (rootState: RootState) => rootState.board;
-const getGrid = (board: BoardState) => board.grid || [];
-
-export const getBoardGrid = createSelector([getBoardRoot], board =>
-  getGrid(board),
-);
+export const getBoardGrid: Selector<Grid> = viewOr([], boardGridLens);

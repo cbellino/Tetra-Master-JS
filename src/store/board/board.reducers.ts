@@ -1,45 +1,34 @@
 import * as R from "ramda";
-import { combineReducers } from "redux";
 
-import { Cell, Grid, Id, Vector2 } from "../../models";
+import { Grid, Vector2 } from "../../models";
+import { createReducer } from "../createReducer";
 import { INIT_BOARD, PLACE_TILE } from "./board.actions";
+import { boardCellLens, boardGridLens } from "./board.lenses";
 
 export type BoardState = { grid: Grid };
 
-export const initBoardReducer = (action: { size: Vector2 }) => {
-  const { size } = action;
-  const newGrid = Array(size.x);
-
-  for (let i = 0; i < newGrid.length; i += 1) {
-    newGrid[i] = Array(size.y).fill({});
-  }
-
-  return newGrid;
+const createGrid = (size: Vector2) => {
+  return Array(size.x)
+    .fill({})
+    .map(() => Array(size.y).fill({}));
 };
 
-export const placeTileReducer = (action: {
-  playerId: Id;
-  tileId: Id;
-  position: Vector2;
-}) => {
-  const { playerId, tileId, position } = action;
+const initBoard = ({ size }) => R.set(boardGridLens, createGrid(size));
 
-  return R.assocPath<Cell, Grid>([position.x, position.y], {
-    playerId,
-    tileId,
-  });
+const placeTile = ({ position, playerId, tileId }) => {
+  return R.set(boardCellLens(position), { playerId, tileId });
 };
 
-const gridReducer = (grid: Grid = [], action): Grid => {
-  switch (action.type) {
-    case INIT_BOARD:
-      return initBoardReducer(action.payload);
-    case PLACE_TILE:
-      return placeTileReducer(action.payload)(grid);
-  }
-  return grid;
+const defaultState: BoardState = {
+  grid: [],
 };
+// TODO: This is really concise but i'm not 100% sure this is a good thing.
+export const boardReducer = rootState => (state = defaultState, action) => {
+  const actions = [
+    [INIT_BOARD, initBoard],
+    [PLACE_TILE, placeTile],
+    // [PLACE_TILE, placeTile],
+  ];
 
-export const boardReducer = combineReducers({
-  grid: gridReducer,
-});
+  return createReducer("board", state, action, actions, rootState);
+};

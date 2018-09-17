@@ -4,7 +4,9 @@ import { boardReducer } from "./board.reducers";
 describe("boardReducer", () => {
   describe("empty action", () => {
     it("should return the default state", () => {
-      expect(boardReducer(undefined, { type: "" })).toEqual({
+      const rootState: any = {};
+
+      expect(boardReducer(rootState)(undefined, { type: "" })).toEqual({
         grid: [],
       });
     });
@@ -12,13 +14,13 @@ describe("boardReducer", () => {
 
   describe("INIT_BOARD action", () => {
     it("should set the player's hand to ['1', '2', '3']", () => {
-      const state: any = {};
+      const rootState: any = {};
       const action = {
         type: INIT_BOARD,
         payload: { size: { x: 2, y: 2 } },
       };
 
-      expect(boardReducer(state, action)).toEqual({
+      expect(boardReducer(rootState)(undefined, action)).toEqual({
         grid: [[{}, {}], [{}, {}]],
       });
     });
@@ -26,15 +28,17 @@ describe("boardReducer", () => {
 
   describe("PLACE_TILE action", () => {
     it("should set the player's hand to ['1', '2', '3']", () => {
-      const state: any = {
-        grid: [[{}, {}], [{}, {}]],
+      const rootState: any = {
+        board: {
+          grid: [[{}, {}], [{}, {}]],
+        },
       };
       const action = {
         type: PLACE_TILE,
         payload: { playerId: "1", tileId: "1", position: { x: 0, y: 0 } },
       };
 
-      expect(boardReducer(state, action)).toEqual({
+      expect(boardReducer(rootState)(undefined, action)).toEqual({
         grid: [[{ playerId: "1", tileId: "1" }, {}], [{}, {}]],
       });
     });

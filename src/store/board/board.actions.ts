@@ -4,6 +4,9 @@ import { getCurrentPlayer } from "../turn";
 export const INIT_BOARD = "INIT_BOARD";
 export const PLACE_TILE = "PLACE_TILE";
 
+export type InitBoardPayload = { size: Vector2 };
+export type PlaceTilePayload = { playerId: Id; tileId: Id; position: Vector2 };
+
 export const initBoard = (size: Vector2) => ({
   type: INIT_BOARD,
   payload: { size },

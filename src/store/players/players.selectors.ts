@@ -1,10 +1,10 @@
 import * as R from "ramda";
 import { createSelector } from "reselect";
 
+import { getNext } from "../../lib";
 import { Id, Player } from "../../models";
 import { RootState } from "../root.reducer";
 import { getRootState } from "../root.selectors";
-import { getNext } from "../shared";
 import { getCurrentPlayerId } from "../turn";
 
 const playersLens = R.lensPath(["players"]);

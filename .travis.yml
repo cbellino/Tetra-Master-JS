@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - 10.10.0
 
+branches:
+  only:
+    - master
+
 cache:
   yarn: true
   directories:
@@ -20,3 +24,10 @@ script:
 deploy:
   provider: firebase
   skip_cleanup: true
+  on:
+    branch: master
+
+notifications:
+  email:
+    on_failure: change
+    on_success: never

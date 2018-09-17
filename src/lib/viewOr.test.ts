@@ -9,6 +9,7 @@ describe("viewOr", () => {
       expect(result).toBe("1");
     });
   });
+
   describe("when the lens returns a value", () => {
     it("should return the default value (null)", () => {
       const result = viewOr(null, R.lensProp("id"), {});

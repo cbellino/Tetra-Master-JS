@@ -12,11 +12,11 @@ import { EnhancedApp } from "./App";
 
 // TODO: Store a specific boolean in the store for this.
 // TODO: Move to the store
-const isInitialized = state => {
+const getGameInitialized = state => {
   return state.board.grid.length > 0;
 };
 
-const debugModeInitGame = () => (dispatch, getState) => {
+const debugModeInitGame = (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
 
   // Create player 1 and 2
@@ -31,23 +31,15 @@ const debugModeInitGame = () => (dispatch, getState) => {
   dispatch(startTurn("1"));
 };
 
-function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { state } = stateProps;
-  const { dispatch } = dispatchProps;
+const mapStateToProps = state => ({
+  initialized: getGameInitialized(state),
+});
 
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    ...ownProps,
-    initialized: isInitialized(state),
-    initGame: () => dispatch(debugModeInitGame()),
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  initGame: () => dispatch(debugModeInitGame),
+});
 
-const enhance = connect(
-  state => ({ state }),
-  dispatch => ({ dispatch }),
-  mergeProps,
-);
-
-export default enhance(EnhancedApp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EnhancedApp);

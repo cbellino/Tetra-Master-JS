@@ -2,7 +2,6 @@ import {
   currentPlayerHasTileSelected,
   getAllPlayerIds,
   getPlayer,
-  getPlayerAtIndex,
   getPlayerIdAtIndex,
   isCurrentPlayerId,
 } from "./players.selectors";
@@ -66,30 +65,6 @@ describe("getPlayer", () => {
     };
 
     expect(getPlayer("1")(rootState)).toBeUndefined();
-  });
-});
-
-describe("getPlayerAtIndex", () => {
-  it("should return { name: 'Player 1' }", () => {
-    const rootState: any = {
-      players: {
-        map: { "1": { name: "Player 1" } },
-        all: ["1", "2"],
-      },
-    };
-
-    expect(getPlayerAtIndex(0)(rootState)).toEqual({ name: "Player 1" });
-  });
-
-  it("should return undefined", () => {
-    const rootState: any = {
-      players: {
-        map: { "1": { name: "Player 1" } },
-        all: ["1", "2"],
-      },
-    };
-
-    expect(getPlayerAtIndex(2)(rootState)).toBeUndefined();
   });
 });
 

@@ -12,7 +12,11 @@ export const initBoard = (size: Vector2) => ({
   payload: { size },
 });
 
-export const placeTile = (playerId: Id, tileId: Id, position: Vector2) => ({
+export const placeTile = (
+  playerId: Id,
+  tileId: Id | undefined,
+  position: Vector2,
+) => ({
   type: PLACE_TILE,
   payload: { playerId, tileId, position },
 });

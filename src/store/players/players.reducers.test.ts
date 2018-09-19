@@ -23,17 +23,18 @@ describe("playersReducer", () => {
 
   describe("ADD_TILE_TO_HAND action", () => {
     it("should set the player's hand to ['1', '2', '3']", () => {
-      const rootState: any = {};
-      const state: any = {
-        map: { "1": { hand: ["1", "2"] } },
-        all: [],
+      const rootState: any = {
+        players: {
+          map: { "1": { hand: ["1", "2"] } },
+          all: [],
+        },
       };
       const action = {
         type: ADD_TILE_TO_HAND,
         payload: { playerId: "1", tileIds: ["3"] },
       };
 
-      expect(playersReducer(rootState)(state, action)).toEqual({
+      expect(playersReducer(rootState)(undefined, action)).toEqual({
         map: { "1": { hand: ["1", "2", "3"] } },
         all: [],
       });
@@ -42,10 +43,11 @@ describe("playersReducer", () => {
 
   describe("ADD_PLAYER action", () => {
     it("should add 'Player 1'", () => {
-      const rootState: any = {};
-      const state: any = {
-        map: {},
-        all: [],
+      const rootState: any = {
+        players: {
+          map: {},
+          all: [],
+        },
       };
       const action = {
         type: ADD_PLAYER,
@@ -59,7 +61,7 @@ describe("playersReducer", () => {
         },
       };
 
-      expect(playersReducer(rootState)(state, action)).toEqual({
+      expect(playersReducer(rootState)(undefined, action)).toEqual({
         map: {
           "1": {
             id: "1",
@@ -76,18 +78,18 @@ describe("playersReducer", () => {
 
   describe("FOCUS_HAND_TILE action", () => {
     it("should set '1' in focusedTileId", () => {
-      const rootState: any = {};
-      const state: any = {
-        map: { "1": {} },
+      const rootState: any = {
+        players: {
+          map: { "1": {} },
+        },
       };
       const action = {
         type: FOCUS_HAND_TILE,
         payload: { playerId: "1", tileId: "1" },
       };
 
-      expect(playersReducer(rootState)(state, action)).toEqual({
+      expect(playersReducer(rootState)(undefined, action)).toEqual({
         map: { "1": { focusedTileId: "1" } },
-        all: [],
       });
     });
 
@@ -103,51 +105,51 @@ describe("playersReducer", () => {
 
       expect(playersReducer(rootState)(state, action)).toEqual({
         map: { "1": { focusedTileId: null } },
-        all: [],
       });
     });
   });
 
   describe("SELECT_HAND_TILE action", () => {
     it("should set '1' in selectedTileId", () => {
-      const rootState: any = {};
-      const state: any = {
-        map: { "1": {} },
+      const rootState: any = {
+        players: {
+          map: { "1": {} },
+        },
       };
       const action = {
         type: SELECT_HAND_TILE,
         payload: { playerId: "1", tileId: "1" },
       };
 
-      expect(playersReducer(rootState)(state, action)).toEqual({
+      expect(playersReducer(rootState)(undefined, action)).toEqual({
         map: { "1": { selectedTileId: "1" } },
-        all: [],
       });
     });
   });
 
   it("should set null in selectedTileId", () => {
-    const rootState: any = {};
-    const state: any = {
-      map: { "1": {} },
+    const rootState: any = {
+      players: {
+        map: { "1": {} },
+      },
     };
     const action = {
       type: SELECT_HAND_TILE,
       payload: { playerId: "1", tileId: null },
     };
 
-    expect(playersReducer(rootState)(state, action)).toEqual({
+    expect(playersReducer(rootState)(undefined, action)).toEqual({
       map: { "1": { selectedTileId: null } },
-      all: [],
     });
   });
 
   describe("PLACE_TILE action", () => {
     it("should remove the tile from the players's hand", () => {
-      const rootState: any = {};
-      const state: any = {
-        map: {
-          "1": { hand: ["1"], selectedTileId: "1", focusedTileId: "1" },
+      const rootState: any = {
+        players: {
+          map: {
+            "1": { hand: ["1"], selectedTileId: "1", focusedTileId: "1" },
+          },
         },
       };
       const action = {
@@ -155,7 +157,7 @@ describe("playersReducer", () => {
         payload: { playerId: "1", tileId: "1", position: { x: 0, y: 0 } },
       };
 
-      const result = playersReducer(rootState)(state, action);
+      const result = playersReducer(rootState)(undefined, action);
 
       expect(result).toEqual({
         map: {
@@ -165,7 +167,6 @@ describe("playersReducer", () => {
             focusedTileId: undefined,
           },
         },
-        all: [],
       });
     });
   });

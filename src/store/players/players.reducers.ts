@@ -1,8 +1,9 @@
 import * as R from "ramda";
-import { combineReducers } from "redux";
 
 import { Id, Player } from "../../models";
 import { PLACE_TILE } from "../board";
+import { createReducer } from "../createReducer";
+import { RootState } from "../root.reducer";
 import {
   ADD_PLAYER,
   ADD_TILE_TO_HAND,
@@ -17,28 +18,22 @@ export type PlayersState = {
 
 export type PlayerMap = { [key: string]: Player };
 
-//
-// Lens
-//
-
-// entities
-const mapItemLens = (id: Id) => R.lensPath(["map", id]);
-const allLens = R.lensProp("all");
-
-// player
-export const playerHandLens = (id: Id) => R.lensPath([id, "hand"]);
-export const playerFocusedTileLens = (id: Id) =>
-  R.lensPath([id, "focusedTileId"]);
-export const playerSelectedTileLens = (id: Id) =>
-  R.lensPath([id, "selectedTileId"]);
+// TODO: Move to players.lenses
+const playerHandLens = (id: Id) => R.lensPath(["players", "map", id, "hand"]);
+const playerFocusedTileLens = (id: Id) =>
+  R.lensPath(["players", "map", id, "focusedTileId"]);
+const playerSelectedTileLens = (id: Id) =>
+  R.lensPath(["players", "map", id, "selectedTileId"]);
+const allPlayersLens = R.lensPath(["players", "all"]);
+const playerMapLens = (playerId: Id) =>
+  R.lensPath(["players", "map", playerId]);
 
 //
 // Helpers
 //
 const addItemsToList = (items: any[]) => (list: any[]) => [...list, ...items];
 const addToList = (item: any) => addItemsToList([item]);
-type PartialPlayer = { id: Id; name: string };
-const createPlayer = (data: PartialPlayer): Player => ({
+const createPlayer = (data: { id: Id; name: string }): Player => ({
   ...{ hand: [], focusedTileId: undefined, selectedTileId: undefined },
   ...data,
 });
@@ -48,72 +43,48 @@ const addTilesToHand = (payload: { playerId: Id; tileIds: Id[] }) => {
   return R.over(playerHandLens(playerId), addItemsToList(tileIds));
 };
 
-const addPlayerReducer = (payload: {
-  player: Player;
-}): ((players: PlayersState) => PlayersState) => {
-  const { player } = payload;
+const addPlayer = ({ player }) => {
   // @ts-ignore
   return R.compose(
-    R.over(allLens, addToList(player.id)),
-    R.set(mapItemLens(player.id), createPlayer(player)),
+    R.over(allPlayersLens, addToList(player.id)),
+    R.set(playerMapLens(player.id), createPlayer(player)),
   );
 };
 
-const setFocusedTileReducer = (payload: { playerId: Id; tileId: Id }) => {
-  const { playerId, tileId } = payload;
+const setFocusesTile = ({ playerId, tileId }) => {
   return R.set(playerFocusedTileLens(playerId), tileId);
 };
 
-const setSelectedTileReducer = (payload: { playerId: Id; tileId: Id }) => {
-  const { playerId, tileId } = payload;
+const setSelectedTile = ({ playerId, tileId }) => {
   return R.set(playerSelectedTileLens(playerId), tileId);
 };
 
-const mapReducer = (playerMap: PlayerMap = {}, { type, payload }) => {
-  switch (type) {
-    case ADD_TILE_TO_HAND:
-      return addTilesToHand(payload)(playerMap);
-    case FOCUS_HAND_TILE:
-      return setFocusedTileReducer(payload)(playerMap);
-    case SELECT_HAND_TILE:
-      return setSelectedTileReducer(payload)(playerMap);
-  }
-  return playerMap;
-};
-
-const allReducer = (playerAll: Id[] = [], action) => {
-  return playerAll;
-};
-
 // FIXME: Replace this crappy code by something robust.
-const tempRemoveTileFromHand = payload => players => {
-  const player = players.map[payload.playerId];
-  const hand = player.hand.filter(tileId => tileId !== payload.tileId);
+const TMP_removeTileFromHand = ({ playerId, tileId }) => (
+  rootState: RootState,
+) => {
+  const player = rootState.players.map[playerId];
+  const hand = player.hand.filter(t => t !== tileId);
   return R.compose(
-    R.assocPath(["map", payload.playerId, "hand"], hand),
-    R.assocPath(["map", payload.playerId, "selectedTileId"], undefined),
-    R.assocPath(["map", payload.playerId, "focusedTileId"], undefined),
-  )(players);
+    R.assocPath(["players", "map", playerId, "hand"], hand),
+    R.assocPath(["players", "map", playerId, "selectedTileId"], undefined),
+    R.assocPath(["players", "map", playerId, "focusedTileId"], undefined),
+  )(rootState);
 };
 
-const crossSliceReducer = (players: PlayersState, action) => {
-  switch (action.type) {
-    case ADD_PLAYER:
-      return addPlayerReducer(action.payload)(players);
-    case PLACE_TILE:
-      return tempRemoveTileFromHand(action.payload)(players);
-  }
-  return players;
+const defaultState = {
+  map: {},
+  all: [],
 };
 
-const combinedReducer = combineReducers({
-  map: mapReducer,
-  all: allReducer,
-});
+export const playersReducer = (rootState: RootState) => (state, action) => {
+  const actions = [
+    [ADD_TILE_TO_HAND, addTilesToHand],
+    [FOCUS_HAND_TILE, setFocusesTile],
+    [SELECT_HAND_TILE, setSelectedTile],
+    [ADD_PLAYER, addPlayer],
+    [PLACE_TILE, TMP_removeTileFromHand],
+  ];
 
-export const playersReducer = rootState => (state, action) => {
-  const intermediateState = combinedReducer(state, action);
-  // @ts-ignore: Not sure what is going on here...
-  const finalState = crossSliceReducer(intermediateState, action);
-  return finalState;
+  return createReducer("players", defaultState, action, actions, rootState);
 };

@@ -1,18 +1,14 @@
 import * as R from "ramda";
 
-import { createSelector } from "reselect";
 import { Id } from "../../models";
 import { getPlayer } from "../players";
 import { RootState } from "../root.reducer";
-import { getRootState } from "../root.selectors";
+import { turnCurrentPlayerIdLens } from "./turn.lenses";
 
-const currentPlayerIdLens = R.lensPath(["turn", "currentPlayerId"]);
-
-export const getCurrentPlayerId = (rootState: RootState) =>
-  R.view<RootState, Id>(currentPlayerIdLens)(rootState);
-
-export const getCurrentPlayer = createSelector(
-  [getRootState, getCurrentPlayerId],
-  (rootState, currentPlayerId) =>
-    currentPlayerId ? getPlayer(currentPlayerId)(rootState) : undefined,
+export const getCurrentPlayerId = R.view<RootState, Id>(
+  turnCurrentPlayerIdLens,
 );
+
+export const getCurrentPlayer = (rootState: RootState) => {
+  return getPlayer(getCurrentPlayerId(rootState))(rootState);
+};

@@ -2,21 +2,27 @@ import { shallow } from "enzyme";
 import * as React from "react";
 
 import TileCard from "../TileCard";
-import { EnhancedPlayerHand as PlayerHand } from "./PlayerHand";
+import { EnhancedPlayerHand, PlayerHand } from "./PlayerHand";
 
 const mockPlayer = { id: "1", name: "Player 1", hand: [] };
 const mockPlayerWithHand = { id: "1", name: "Player 1", hand: ["1", "2"] };
 
+const shallowUntil = component =>
+  shallow(component)
+    // @ts-ignore
+    .until(PlayerHand)
+    .dive();
+
 describe("PlayerHand", () => {
   it("should display the player name ('Player 1')", () => {
-    const wrapper = shallow(<PlayerHand player={mockPlayer} />).dive();
+    const wrapper = shallowUntil(<EnhancedPlayerHand player={mockPlayer} />);
 
     expect(wrapper.find(".player-name").contains("Player 1")).toBeTruthy();
     expect(wrapper).toMatchSnapshot();
   });
 
   it("should have a className containing the player id", () => {
-    const wrapper = shallow(<PlayerHand player={mockPlayer} />).dive();
+    const wrapper = shallowUntil(<EnhancedPlayerHand player={mockPlayer} />);
 
     expect(wrapper.hasClass("player-1")).toBeTruthy();
     expect(wrapper).toMatchSnapshot();
@@ -24,9 +30,9 @@ describe("PlayerHand", () => {
 
   describe("when the player is playing", () => {
     it("should have a className of 'is-playing'", () => {
-      const wrapper = shallow(
-        <PlayerHand player={mockPlayer} isPlaying />,
-      ).dive();
+      const wrapper = shallowUntil(
+        <EnhancedPlayerHand player={mockPlayer} isPlaying />,
+      );
 
       expect(wrapper.hasClass("is-playing")).toBeTruthy();
       expect(wrapper).toMatchSnapshot();
@@ -35,7 +41,7 @@ describe("PlayerHand", () => {
 
   describe("when the player has no tile in hand", () => {
     it("should display 0 tile", () => {
-      const wrapper = shallow(<PlayerHand player={mockPlayer} />).dive();
+      const wrapper = shallowUntil(<EnhancedPlayerHand player={mockPlayer} />);
 
       expect(wrapper.find(TileCard)).toHaveLength(0);
       expect(wrapper).toMatchSnapshot();
@@ -44,9 +50,9 @@ describe("PlayerHand", () => {
 
   describe("when the player has 2 tiles in hand", () => {
     it("should display 2 tiles", () => {
-      const wrapper = shallow(
-        <PlayerHand player={mockPlayerWithHand} />,
-      ).dive();
+      const wrapper = shallowUntil(
+        <EnhancedPlayerHand player={mockPlayerWithHand} />,
+      );
 
       expect(wrapper.find(TileCard)).toHaveLength(2);
       expect(wrapper).toMatchSnapshot();
@@ -56,14 +62,14 @@ describe("PlayerHand", () => {
       const onTileMouseEnter = jest.fn();
       const onTileMouseLeave = jest.fn();
       const onTileClick = jest.fn();
-      const wrapper = shallow(
-        <PlayerHand
+      const wrapper = shallowUntil(
+        <EnhancedPlayerHand
           player={mockPlayerWithHand}
           onTileMouseEnter={onTileMouseEnter}
           onTileMouseLeave={onTileMouseLeave}
           onTileClick={onTileClick}
         />,
-      ).dive();
+      );
 
       const firstTileCard = wrapper.find(TileCard).first();
       firstTileCard.simulate("click");

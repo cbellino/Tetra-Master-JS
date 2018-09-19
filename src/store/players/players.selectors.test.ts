@@ -1,6 +1,7 @@
 import {
   currentPlayerHasTileSelected,
   getAllPlayerIds,
+  getNextPlayerId,
   getPlayer,
   getPlayerIdAtIndex,
   isCurrentPlayerId,
@@ -118,7 +119,7 @@ describe("isCurrentPlayerId", () => {
   });
 });
 
-describe("hasTileSelected", () => {
+describe("currentPlayerHasTileSelected", () => {
   describe("when the player has no selectedTileId", () => {
     it("should return false", () => {
       const rootState: any = {
@@ -150,6 +151,38 @@ describe("hasTileSelected", () => {
       };
 
       expect(currentPlayerHasTileSelected(rootState)).toBeTruthy();
+    });
+  });
+});
+
+describe("getNextPlayerId", () => {
+  describe("when the player isn't the last one", () => {
+    it("should return the next one ('2')", () => {
+      const rootState: any = {
+        players: {
+          all: ["1", "2"],
+        },
+        turn: {
+          currentPlayerId: "1",
+        },
+      };
+
+      expect(getNextPlayerId(rootState)).toBe("2");
+    });
+  });
+
+  describe("when the player is the last one", () => {
+    it("should return the first one ('1')", () => {
+      const rootState: any = {
+        players: {
+          all: ["1", "2"],
+        },
+        turn: {
+          currentPlayerId: "2",
+        },
+      };
+
+      expect(getNextPlayerId(rootState)).toBe("1");
     });
   });
 });

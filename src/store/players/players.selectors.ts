@@ -1,7 +1,7 @@
 import * as R from "ramda";
 
 import { getNext, viewOr } from "../../lib";
-import { Id, Player } from "../../models";
+import { Id } from "../../models";
 import { RootState } from "../root.reducer";
 import { getCurrentPlayerId } from "../turn";
 import {
@@ -10,35 +10,46 @@ import {
   playerLens,
 } from "./players.lenses";
 
-export const getAllPlayerIds = viewOr<Id[]>([], allPlayerIdsLens);
+export const getAllPlayerIds = viewOr([], allPlayerIdsLens);
 
-export const getPlayer = (playerId: Id) => {
-  return viewOr<Player>(undefined, playerLens(playerId));
-};
+// TODO: Find a better way to type this function.
+export const getPlayer: any = R.compose(
+  R.view,
+  playerLens,
+);
 
-export const getPlayerIdAtIndex = (index: number) => {
-  return viewOr<Id>(undefined, playerIdAtIndexLens(index));
-};
+// TODO: Find a better way to type this function.
+export const getPlayerIdAtIndex: any = R.compose(
+  R.view,
+  playerIdAtIndexLens,
+);
 
 // TODO: What if there is no currentPlayerId?
-export const getNextPlayerId = (rootState: RootState): Id | undefined => {
-  const currentPlayerId = getCurrentPlayerId(rootState);
-  const allPlayersIds = getAllPlayerIds(rootState);
-
-  return getNext(allPlayersIds)(currentPlayerId);
+// TODO: Ask rudy / wolfgang why the pointfree version crashes ?
+export const getNextPlayerId = rootState => {
+  return R.converge(getNext, [getAllPlayerIds, getCurrentPlayerId])(rootState);
 };
+// export const getNextPlayerId = R.converge(getNext, [
+//   getAllPlayerIds,
+//   getCurrentPlayerId,
+// ]);
 
-export const isCurrentPlayerId = (playerId: Id) => (rootState: RootState) => {
-  return getCurrentPlayerId(rootState) === playerId;
+export const isCurrentPlayerId = (playerId: Id) => {
+  return R.pipe(
+    getCurrentPlayerId,
+    R.equals(playerId),
+  );
 };
 
 export const currentPlayerHasTileSelected = (rootState: RootState) => {
+  const getCurrentPlayer = R.compose(
+    getPlayer,
+    getCurrentPlayerId,
+  );
+
   return R.pipe(
-    R.compose(
-      getPlayer,
-      getCurrentPlayerId,
-    )(rootState),
     // @ts-ignore
+    getCurrentPlayer(rootState),
     R.prop("selectedTileId"),
     R.equals(undefined),
     R.not,

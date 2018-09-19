@@ -30,8 +30,7 @@ const defaultState: PlayersState = {
   all: [],
 };
 
-const addTilesToHand = (payload: { playerId: Id; tileIds: Id[] }) => {
-  const { playerId, tileIds } = payload;
+const addTilesToHand = ({ playerId, tileIds }) => {
   return R.over(playerHandLens(playerId), addItemsToList(tileIds));
 };
 

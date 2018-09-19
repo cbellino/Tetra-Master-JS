@@ -15,8 +15,7 @@ const defaultState: TurnState = {
   currentPlayerId: undefined,
 };
 
-const setCurrentPlayerId = (payload: { playerId: Id }) => {
-  const { playerId } = payload;
+const setCurrentPlayerId = ({ playerId }) => {
   return R.set(turnCurrentPlayerIdLens, playerId);
 };
 

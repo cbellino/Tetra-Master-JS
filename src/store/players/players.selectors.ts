@@ -1,6 +1,6 @@
 import * as R from "ramda";
 
-import { getNext } from "../../lib";
+import { getNext, viewOr } from "../../lib";
 import { Id, Player } from "../../models";
 import { RootState } from "../root.reducer";
 import { getCurrentPlayerId } from "../turn";
@@ -10,23 +10,14 @@ import {
   playerLens,
 } from "./players.lenses";
 
-export const getAllPlayerIds = (rootState: RootState) => {
-  // @ts-ignore
-  return R.view<RootState, Id[]>(allPlayerIdsLens, rootState) || [];
+export const getAllPlayerIds = viewOr<Id[]>([], allPlayerIdsLens);
+
+export const getPlayer = (playerId: Id) => {
+  return viewOr<Player>(undefined, playerLens(playerId));
 };
 
-export const getPlayer = (playerId: Id) => (rootState: RootState) => {
-  return (
-    // @ts-ignore
-    R.view<RootState, Player>(playerLens(playerId), rootState) || undefined
-  );
-};
-
-export const getPlayerIdAtIndex = (index: number) => (rootState: RootState) => {
-  return (
-    // @ts-ignore
-    R.view<RootState, Id>(playerIdAtIndexLens(index), rootState) || undefined
-  );
+export const getPlayerIdAtIndex = (index: number) => {
+  return viewOr<Id>(undefined, playerIdAtIndexLens(index));
 };
 
 // TODO: What if there is no currentPlayerId?
@@ -47,6 +38,7 @@ export const currentPlayerHasTileSelected = (rootState: RootState) => {
       getPlayer,
       getCurrentPlayerId,
     )(rootState),
+    // @ts-ignore
     R.prop("selectedTileId"),
     R.equals(undefined),
     R.not,

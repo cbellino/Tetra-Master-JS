@@ -2,6 +2,8 @@ exclude_patterns:
   - "**/node_modules/"
   - "**/*.d.ts"
   - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.snap"
 
 plugins:
   fixme:

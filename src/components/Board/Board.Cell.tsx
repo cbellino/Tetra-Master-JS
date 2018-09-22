@@ -16,7 +16,7 @@ const onClickWithPosition = (onClick, position) => clickEvent => {
 
 const BoardCell: React.SFC<CellProps> = ({ position, cell, onClick }) => (
   <div
-    className="board-cell"
+    className={`board-cell position-${position.x}-${position.y}`}
     role="button"
     onClick={onClickWithPosition(onClick, position)}
   >

@@ -10,7 +10,9 @@
     "deploy": "firebase deploy --token $FIREBASE_TOKEN",
     "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
     "tslint": "tslint --fix -c tslint.json --project tsconfig.json 'src/**/*.{ts,tsx}'",
-    "lint": "yarn prettier && yarn tslint"
+    "lint": "yarn prettier && yarn tslint",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -39,6 +41,7 @@
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-mock-store": "^1.0.0",
     "@types/uuid": "^3.4.4",
+    "cypress": "^3.1.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-shallow-until": "^1.0.1",
     "enzyme-to-json": "^3.3.4",

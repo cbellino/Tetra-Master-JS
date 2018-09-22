@@ -1,12 +1,12 @@
 import * as R from "ramda";
+import { RootState } from "./root.reducer";
 
-// TODO: Add unit tests.
 export const createReducer = (
-  key,
-  defaultState,
-  action,
+  key: string,
+  defaultState: object,
+  action: { type: string; payload?: object },
   actions,
-  rootState,
+  rootState: RootState,
 ) => {
   const { type, payload } = action;
 

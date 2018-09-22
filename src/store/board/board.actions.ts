@@ -1,5 +1,8 @@
 import { Id, Vector2 } from "../../models";
+import { currentPlayerHasTileSelected } from "../players";
 import { getCurrentPlayer } from "../turn";
+import { finishTurn } from "../turn/turn.actions";
+import { canPlaceTileAtPosition } from "./board.selectors";
 
 export const INIT_BOARD = "INIT_BOARD";
 export const PLACE_TILE = "PLACE_TILE";
@@ -21,12 +24,16 @@ export const placeTile = (
   payload: { playerId, tileId, position },
 });
 
-export const placeCurrentPlayerTile = (position: Vector2) => (
-  dispatch,
-  getState,
-) => {
-  const player = getCurrentPlayer(getState());
-  // TODO: Dispatch only if the player can place a tile.
-  // TODO: Dispatch only if the player has selected a tile.
-  dispatch(placeTile(player.id, player.selectedTileId, position));
+export const tryToPlaceTile = (position: Vector2) => (dispatch, getState) => {
+  const state = getState();
+
+  const canPlaceTile = canPlaceTileAtPosition(position)(state);
+  const hasTileSelected = currentPlayerHasTileSelected(state);
+
+  if (canPlaceTile && hasTileSelected) {
+    const player = getCurrentPlayer(state);
+
+    dispatch(placeTile(player.id, player.selectedTileId, position));
+    dispatch(finishTurn());
+  }
 };

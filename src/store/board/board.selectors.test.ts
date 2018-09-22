@@ -3,6 +3,7 @@ import {
   canPlaceTileAtPosition,
   getBoardCell,
   getBoardGrid,
+  getGameInitialized,
 } from "./board.selectors";
 
 describe("getBoardGrid", () => {
@@ -62,6 +63,32 @@ describe("canPlaceTileAtPosition", () => {
       };
 
       expect(canPlaceTileAtPosition({ x: 0, y: 0 })(rootState)).toBe(false);
+    });
+  });
+});
+
+describe("getGameInitialized", () => {
+  describe("when board.grid contains at least one cell", () => {
+    it("should return true", () => {
+      const rootState: any = {
+        board: {
+          grid: [[{}, {}], [{}, {}]],
+        },
+      };
+
+      expect(getGameInitialized(rootState)).toBe(true);
+    });
+  });
+
+  describe("when board.grid contains no cell", () => {
+    it("should return false", () => {
+      const rootState: any = {
+        board: {
+          grid: [],
+        },
+      };
+
+      expect(getGameInitialized(rootState)).toBe(false);
     });
   });
 });

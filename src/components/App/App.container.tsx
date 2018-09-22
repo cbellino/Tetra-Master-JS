@@ -5,23 +5,18 @@ import {
   addPlayer,
   addTilesToPlayerHand,
   getAllPlayerIds,
+  getGameInitialized,
   initBoard,
 } from "../../store";
 import { startTurn } from "../../store/turn/turn.actions";
 import { EnhancedApp } from "./App";
-
-// TODO: Store a specific boolean in the store for this.
-// TODO: Move to the store
-const getGameInitialized = state => {
-  return state.board.grid.length > 0;
-};
 
 const debugModeInitGame = (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
 
   // Create player 1 and 2
   dispatch(addPlayer({ id: "1", name: "Player 1", selectedTileId: "1" }));
-  dispatch(addPlayer({ id: "2", name: "Player 2", selectedTileId: "6" }));
+  dispatch(addPlayer({ id: "2", name: "Player 2", selectedTileId: "12" }));
 
   // Give random cards to player 1 and 2
   const allPlayerIds = getAllPlayerIds(getState());

@@ -3,7 +3,7 @@ import * as React from "react";
 import { compose, defaultProps, lifecycle } from "recompose";
 import Board from "../Board";
 import DebugBar from "../DebugBar";
-import { Overlay } from "../Overlay";
+import Overlay from "../Overlay";
 import PlayerHand from "../PlayerHand";
 import "./App.css";
 

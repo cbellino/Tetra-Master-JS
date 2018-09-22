@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Overlay should display the children 1`] = `
+<div
+  className="overlay"
+  onClick={[Function]}
+  role="button"
+>
+  My content
+</div>
+`;
+
+exports[`Overlay should have a className of 'overlay' 1`] = `
+<div
+  className="overlay"
+  onClick={[Function]}
+  role="button"
+>
+  My content
+</div>
+`;
+
+exports[`Overlay should react to mouse events 1`] = `
+<div
+  className="overlay"
+  onClick={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+    }
+  }
+  role="button"
+/>
+`;

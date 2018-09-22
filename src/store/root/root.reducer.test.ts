@@ -9,6 +9,7 @@ describe("rootReducer", () => {
         board: expect.any(Object),
         players: expect.any(Object),
         turn: expect.any(Object),
+        game: expect.any(Object),
       });
     });
   });

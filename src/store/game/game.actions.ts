@@ -3,6 +3,8 @@ import { initBoard } from "../board";
 import { addPlayer, addTilesToPlayerHand } from "../players";
 import { startTurn } from "../turn/turn.actions";
 
+export const FINISH_GAME = "FINISH_GAME";
+
 // TODO: Maybe we should move this to store/game ?
 export const startGame = () => (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
@@ -18,13 +20,8 @@ export const startGame = () => (dispatch, getState) => {
   dispatch(startTurn("1"));
 };
 
-// TODO: Set game.isOver = true
-// TODO: Display the reset button in an overlay
-export const finishGame = () => dispatch => {
-  // tslint:disable-next-line no-console
-  console.log("Game finished, restarting in 2s.");
-
-  setTimeout(() => {
-    dispatch(startGame());
-  }, 2000);
+export const finishGame = () => {
+  return {
+    type: FINISH_GAME,
+  };
 };

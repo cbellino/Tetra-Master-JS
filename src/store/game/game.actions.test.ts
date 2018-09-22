@@ -3,7 +3,7 @@ import { Vector2 } from "../../models";
 import { initBoard } from "../board";
 import { addPlayer, addTilesToPlayerHand } from "../players";
 import { startTurn } from "../turn/turn.actions";
-import { startGame } from "./root.actions";
+import { FINISH_GAME, finishGame, startGame } from "./game.actions";
 
 describe("startGame", () => {
   it("should reset the board, players and start a new turn", () => {
@@ -39,5 +39,11 @@ describe("startGame", () => {
       addTilesToPlayerHand("2", ["11", "12", "13", "14", "15"]),
     );
     expect(actions[5]).toEqual(startTurn("1"));
+  });
+});
+
+describe("finishGame", () => {
+  it("should return a FINISH_ACTION action", () => {
+    expect(finishGame()).toEqual({ type: FINISH_GAME });
   });
 });

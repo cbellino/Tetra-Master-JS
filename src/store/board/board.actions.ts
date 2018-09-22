@@ -1,6 +1,6 @@
 import { Id, Vector2 } from "../../models";
+import { finishGame } from "../game";
 import { currentPlayerHasTileSelected } from "../players";
-import { finishGame } from "../root";
 import { getCurrentPlayer } from "../turn";
 import { finishTurn } from "../turn/turn.actions";
 import {

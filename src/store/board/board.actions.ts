@@ -1,8 +1,12 @@
 import { Id, Vector2 } from "../../models";
 import { currentPlayerHasTileSelected } from "../players";
+import { finishGame } from "../root";
 import { getCurrentPlayer } from "../turn";
 import { finishTurn } from "../turn/turn.actions";
-import { canPlaceTileAtPosition } from "./board.selectors";
+import {
+  canPlaceTileAtPosition,
+  checkGameOverConditions,
+} from "./board.selectors";
 
 export const INIT_BOARD = "INIT_BOARD";
 export const PLACE_TILE = "PLACE_TILE";
@@ -25,15 +29,20 @@ export const placeTile = (
 });
 
 export const tryToPlaceTile = (position: Vector2) => (dispatch, getState) => {
-  const state = getState();
+  const canPlaceTile = canPlaceTileAtPosition(position)(getState());
+  const hasTileSelected = currentPlayerHasTileSelected(getState());
 
-  const canPlaceTile = canPlaceTileAtPosition(position)(state);
-  const hasTileSelected = currentPlayerHasTileSelected(state);
+  if (!canPlaceTile || !hasTileSelected) {
+    return;
+  }
 
-  if (canPlaceTile && hasTileSelected) {
-    const player = getCurrentPlayer(state);
+  const player = getCurrentPlayer(getState());
+  dispatch(placeTile(player.id, player.selectedTileId, position));
 
-    dispatch(placeTile(player.id, player.selectedTileId, position));
+  const isGameFinished = checkGameOverConditions(getState());
+  if (isGameFinished) {
+    dispatch(finishGame());
+  } else {
     dispatch(finishTurn());
   }
 };

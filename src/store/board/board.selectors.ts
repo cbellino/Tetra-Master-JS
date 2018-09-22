@@ -21,3 +21,22 @@ export const canPlaceTileAtPosition = (position: Vector2) => {
 export const getGameInitialized = (rootState: RootState) => {
   return rootState.board.grid.length > 0;
 };
+
+const isCellEmpty = cell => R.isEmpty(cell);
+const hasEmptyCell = row => row.some(isCellEmpty);
+
+export const isBoardFull = (rootState: RootState) => {
+  return R.compose(
+    R.equals(0),
+    R.length,
+    R.filter(hasEmptyCell),
+    R.view(boardGridLens),
+  )(rootState);
+};
+
+// TODO: Move this to store/game instead for global things like this?
+export const checkGameOverConditions = (rootState: RootState): boolean => {
+  const conditions = [isBoardFull];
+
+  return conditions.some(condition => condition(rootState));
+};

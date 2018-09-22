@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onResetGameClick: () => dispatch(startGame),
+  onResetGameClick: () => dispatch(startGame()),
 });
 
 const enhance = connect(

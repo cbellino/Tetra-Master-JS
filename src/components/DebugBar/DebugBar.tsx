@@ -1,18 +1,32 @@
 import * as React from "react";
 
+import { compose, defaultProps } from "recompose";
 import { Player } from "../../models";
 import "./DebugBar.css";
 
 type DebugBarProps = {
   initialized: boolean;
   currentPlayer?: Player;
+  onResetGameClick?: () => void;
 };
 
-const DebugBar: React.SFC<DebugBarProps> = ({ initialized, currentPlayer }) => (
+type EnhancedDebugBarProps = {
+  initialized: boolean;
+  currentPlayer: Player;
+  onResetGameClick: () => void;
+};
+
+const DebugBar: React.SFC<DebugBarProps> = ({
+  initialized,
+  currentPlayer,
+  onResetGameClick,
+}) => (
   <div className="debug-bar">
     <div>
       Game initialized: <b>{initialized.toString()}</b>
     </div>
+    <div />
+    <button onClick={onResetGameClick}>Reset game</button>
     <div />
     <div>
       Current player: <b>{currentPlayer ? currentPlayer.name : "none"}</b>
@@ -20,4 +34,10 @@ const DebugBar: React.SFC<DebugBarProps> = ({ initialized, currentPlayer }) => (
   </div>
 );
 
-export const EnhancedDebugBar = DebugBar;
+const withDefaultProps = defaultProps({
+  onResetGameClick: () => {},
+});
+
+const enhance = compose<DebugBarProps, EnhancedDebugBarProps>(withDefaultProps);
+
+export const EnhancedDebugBar = enhance(DebugBar);

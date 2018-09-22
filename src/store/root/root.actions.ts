@@ -3,7 +3,8 @@ import { initBoard } from "../board";
 import { addPlayer, addTilesToPlayerHand, getAllPlayerIds } from "../players";
 import { startTurn } from "../turn/turn.actions";
 
-export const debugModeInitGame = (dispatch, getState) => {
+// TODO: Add unit tests
+export const startGame = (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
 
   // Create player 1 and 2

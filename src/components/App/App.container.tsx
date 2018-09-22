@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { debugModeInitGame, getGameInitialized } from "../../store";
+import { getGameInitialized, startGame } from "../../store";
 import { EnhancedApp } from "./App";
 
 const mapStateToProps = state => ({
@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initGame: () => dispatch(debugModeInitGame),
+  initGame: () => dispatch(startGame),
 });
 
 export default connect(

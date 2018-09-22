@@ -1,6 +1,11 @@
 import * as R from "ramda";
 
-import { addItemsToList, addItemToList, createPlayer } from "../../lib";
+import {
+  addItemsToList,
+  addItemToList,
+  createPlayer,
+  filterItems,
+} from "../../lib";
 import { Id, Player } from "../../models";
 import { PLACE_TILE } from "../board";
 import { createReducer } from "../createReducer";
@@ -50,18 +55,12 @@ const setSelectedTile = ({ playerId, tileId }) => {
   return R.set(playerSelectedTileLens(playerId), tileId);
 };
 
-// FIXME: Clean this up @cbellino :(
-const SHAME_removeTileFromHand = ({ playerId, tileId }) => (
-  rootState: RootState,
-) => {
-  const player = rootState.players.map[playerId];
-  const hand = player.hand.filter(t => t !== tileId);
-  return R.compose(
-    R.assocPath(["players", "map", playerId, "hand"], hand),
-    R.assocPath(["players", "map", playerId, "selectedTileId"], undefined),
-    R.assocPath(["players", "map", playerId, "focusedTileId"], undefined),
-  )(rootState);
-};
+const removeTileFromHand = ({ playerId, tileId }) =>
+  R.compose(
+    R.over(playerHandLens(playerId), filterItems(t => t !== tileId)),
+    R.set(playerFocusedTileLens(playerId), undefined),
+    R.set(playerSelectedTileLens(playerId), undefined),
+  );
 
 export const playersReducer = (rootState: RootState) => (state, action) => {
   const actions = [
@@ -69,7 +68,7 @@ export const playersReducer = (rootState: RootState) => (state, action) => {
     [FOCUS_HAND_TILE, setFocusesTile],
     [SELECT_HAND_TILE, setSelectedTile],
     [ADD_PLAYER, addPlayer],
-    [PLACE_TILE, SHAME_removeTileFromHand],
+    [PLACE_TILE, removeTileFromHand],
   ];
 
   return createReducer("players", defaultState, action, actions, rootState);

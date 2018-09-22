@@ -1,4 +1,4 @@
-import rootReducer from "./root.reducer";
+import { rootReducer } from "./root.reducers";
 
 describe("rootReducer", () => {
   describe("empty action", () => {

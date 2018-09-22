@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import { RootState } from "./root.reducer";
+import { RootState } from "./root";
 
 export const createReducer = (
   key: string,

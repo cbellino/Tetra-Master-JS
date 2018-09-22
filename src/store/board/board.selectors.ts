@@ -2,7 +2,7 @@ import * as R from "ramda";
 
 import { viewOr } from "../../lib";
 import { Cell, Grid, Selector, Vector2 } from "../../models";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 import { boardCellLens, boardGridLens } from "./board.lenses";
 
 export const getBoardGrid: Selector<Grid> = viewOr([], boardGridLens);

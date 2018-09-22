@@ -1,32 +1,7 @@
 import { connect } from "react-redux";
 
-import { Vector2 } from "../../models";
-import {
-  addPlayer,
-  addTilesToPlayerHand,
-  getAllPlayerIds,
-  getGameInitialized,
-  initBoard,
-} from "../../store";
-import { startTurn } from "../../store/turn/turn.actions";
+import { debugModeInitGame, getGameInitialized } from "../../store";
 import { EnhancedApp } from "./App";
-
-const debugModeInitGame = (dispatch, getState) => {
-  dispatch(initBoard(new Vector2(3, 3)));
-
-  // Create player 1 and 2
-  dispatch(addPlayer({ id: "1", name: "Player 1", selectedTileId: "1" }));
-  dispatch(addPlayer({ id: "2", name: "Player 2", selectedTileId: "12" }));
-
-  // Give random cards to player 1 and 2
-  const allPlayerIds = getAllPlayerIds(getState());
-  dispatch(addTilesToPlayerHand(allPlayerIds[0], ["1", "2", "3", "4", "5"]));
-  dispatch(
-    addTilesToPlayerHand(allPlayerIds[1], ["11", "12", "13", "14", "15"]),
-  );
-
-  dispatch(startTurn("1"));
-};
 
 const mapStateToProps = state => ({
   initialized: getGameInitialized(state),

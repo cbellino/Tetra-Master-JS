@@ -3,7 +3,7 @@ import * as R from "ramda";
 import { Id } from "../../models";
 import { createReducer } from "../createReducer";
 import { getNextPlayerId } from "../players";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 import { FINISH_TURN, START_TURN } from "./turn.actions";
 import { turnCurrentPlayerIdLens } from "./turn.lenses";
 

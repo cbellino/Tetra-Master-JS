@@ -3,7 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import immutableStateInvariantMiddleware from "redux-immutable-state-invariant";
 import thunk from "redux-thunk";
 
-import rootReducer from "./root.reducer";
+import { rootReducer } from "./root";
 
 const middlewares = [
   immutableStateInvariantMiddleware(), // TODO: Enable only in development mode.
@@ -20,7 +20,7 @@ export function configureStore(initialState = {}) {
   return store;
 }
 
-export * from "./root.reducer";
+export * from "./root";
 export * from "./board";
 export * from "./players";
 export * from "./tiles";

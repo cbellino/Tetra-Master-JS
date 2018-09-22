@@ -4,7 +4,7 @@ import { addItemsToList, addItemToList, createPlayer } from "../../lib";
 import { Id, Player } from "../../models";
 import { PLACE_TILE } from "../board";
 import { createReducer } from "../createReducer";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 import {
   ADD_PLAYER,
   ADD_TILE_TO_HAND,

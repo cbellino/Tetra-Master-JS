@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { compose, defaultProps } from "recompose";
+import { Dispatch } from "redux";
 import { Player } from "../../models";
 import "./DebugBar.css";
 
@@ -8,6 +9,7 @@ type DebugBarProps = {
   initialized: boolean;
   currentPlayer?: Player;
   onResetGameClick?: () => void;
+  dispatch: Dispatch;
 };
 
 type EnhancedDebugBarProps = {
@@ -20,6 +22,7 @@ const DebugBar: React.SFC<DebugBarProps> = ({
   initialized,
   currentPlayer,
   onResetGameClick,
+  dispatch,
 }) => (
   <div className="debug-bar">
     <div>
@@ -27,6 +30,9 @@ const DebugBar: React.SFC<DebugBarProps> = ({
     </div>
     <div />
     <button onClick={onResetGameClick}>Reset game</button>
+    <button onClick={() => dispatch({ type: "FINISH_GAME" })}>
+      Finish game
+    </button>
     <div />
     <div>
       Current player: <b>{currentPlayer ? currentPlayer.name : "none"}</b>

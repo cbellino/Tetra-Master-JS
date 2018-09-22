@@ -3,9 +3,15 @@ import { Vector2 } from "../../models";
 import { initBoard } from "../board";
 import { addPlayer, addTilesToPlayerHand } from "../players";
 import { startTurn } from "../turn/turn.actions";
-import { FINISH_GAME, finishGame, startGame } from "./game.actions";
+import {
+  FINISH_GAME,
+  finishGame,
+  restartGame,
+  START_GAME,
+  startGame,
+} from "./game.actions";
 
-describe("startGame", () => {
+describe("restartGame", () => {
   it("should reset the board, players and start a new turn", () => {
     const store = createMockStore({
       board: {
@@ -21,7 +27,7 @@ describe("startGame", () => {
       },
     });
 
-    store.dispatch(startGame());
+    store.dispatch(restartGame());
 
     const actions = store.getActions();
 
@@ -45,5 +51,11 @@ describe("startGame", () => {
 describe("finishGame", () => {
   it("should return a FINISH_ACTION action", () => {
     expect(finishGame()).toEqual({ type: FINISH_GAME });
+  });
+});
+
+describe("startGame", () => {
+  it("should return a START_ACTION action", () => {
+    expect(startGame()).toEqual({ type: START_GAME });
   });
 });

@@ -4,9 +4,10 @@ import { addPlayer, addTilesToPlayerHand } from "../players";
 import { startTurn } from "../turn/turn.actions";
 
 export const FINISH_GAME = "FINISH_GAME";
+export const START_GAME = "START_GAME";
 
 // TODO: Maybe we should move this to store/game ?
-export const startGame = () => (dispatch, getState) => {
+export const restartGame = () => (dispatch, getState) => {
   dispatch(initBoard(new Vector2(3, 3)));
 
   // Create player 1 and 2
@@ -18,10 +19,18 @@ export const startGame = () => (dispatch, getState) => {
   dispatch(addTilesToPlayerHand("2", ["11", "12", "13", "14", "15"]));
 
   dispatch(startTurn("1"));
+
+  dispatch(startGame());
 };
 
 export const finishGame = () => {
   return {
     type: FINISH_GAME,
+  };
+};
+
+export const startGame = () => {
+  return {
+    type: START_GAME,
   };
 };

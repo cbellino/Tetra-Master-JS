@@ -2,7 +2,7 @@ import * as R from "ramda";
 
 import { createReducer } from "../createReducer";
 import { RootState } from "../root";
-import { FINISH_GAME } from "./game.actions";
+import { FINISH_GAME, START_GAME } from "./game.actions";
 import { gameStatusLens } from "./game.lenses";
 
 export enum GameStatus {
@@ -25,7 +25,10 @@ const setStatus = ({ status }) => () => {
 };
 
 export const gameReducer = (rootState: RootState) => (state, action) => {
-  const actions = [[FINISH_GAME, setStatus({ status: GameStatus.OVER })]];
+  const actions = [
+    [FINISH_GAME, setStatus({ status: GameStatus.OVER })],
+    [START_GAME, setStatus({ status: GameStatus.IN_PROGRESS })],
+  ];
 
   return createReducer("game", defaultState, action, actions, rootState);
 };

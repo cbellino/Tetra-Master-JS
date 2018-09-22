@@ -1,8 +1,8 @@
 import {
   currentPlayerHasTileSelected,
   getAllPlayerIds,
+  getNextPlayerId,
   getPlayer,
-  getPlayerAtIndex,
   getPlayerIdAtIndex,
   isCurrentPlayerId,
 } from "./players.selectors";
@@ -69,30 +69,6 @@ describe("getPlayer", () => {
   });
 });
 
-describe("getPlayerAtIndex", () => {
-  it("should return { name: 'Player 1' }", () => {
-    const rootState: any = {
-      players: {
-        map: { "1": { name: "Player 1" } },
-        all: ["1", "2"],
-      },
-    };
-
-    expect(getPlayerAtIndex(0)(rootState)).toEqual({ name: "Player 1" });
-  });
-
-  it("should return undefined", () => {
-    const rootState: any = {
-      players: {
-        map: { "1": { name: "Player 1" } },
-        all: ["1", "2"],
-      },
-    };
-
-    expect(getPlayerAtIndex(2)(rootState)).toBeUndefined();
-  });
-});
-
 describe("getPlayerIdAtIndex", () => {
   it("should return '1'", () => {
     const rootState: any = {
@@ -143,7 +119,7 @@ describe("isCurrentPlayerId", () => {
   });
 });
 
-describe("hasTileSelected", () => {
+describe("currentPlayerHasTileSelected", () => {
   describe("when the player has no selectedTileId", () => {
     it("should return false", () => {
       const rootState: any = {
@@ -175,6 +151,38 @@ describe("hasTileSelected", () => {
       };
 
       expect(currentPlayerHasTileSelected(rootState)).toBeTruthy();
+    });
+  });
+});
+
+describe("getNextPlayerId", () => {
+  describe("when the player isn't the last one", () => {
+    it("should return the next one ('2')", () => {
+      const rootState: any = {
+        players: {
+          all: ["1", "2"],
+        },
+        turn: {
+          currentPlayerId: "1",
+        },
+      };
+
+      expect(getNextPlayerId(rootState)).toBe("2");
+    });
+  });
+
+  describe("when the player is the last one", () => {
+    it("should return the first one ('1')", () => {
+      const rootState: any = {
+        players: {
+          all: ["1", "2"],
+        },
+        turn: {
+          currentPlayerId: "2",
+        },
+      };
+
+      expect(getNextPlayerId(rootState)).toBe("1");
     });
   });
 });

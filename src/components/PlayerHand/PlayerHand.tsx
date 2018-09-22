@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import * as React from "react";
-import { compose, defaultProps } from "recompose";
+import { branch, compose, defaultProps, renderNothing } from "recompose";
 
 import { Id, Player } from "../../models";
 import TileCard from "../TileCard";
@@ -22,11 +22,16 @@ type PlayerHandProps = {
   onTileClick: TileEventFn;
 };
 
+const withNoRenderWithoutPlayer = branch(
+  ({ player }) => player === undefined,
+  renderNothing,
+);
+
 const handleTileMouseEvent = (tileId: Id, onEvent: TileEventFn) => () => {
   onEvent({ tileId });
 };
 
-const PlayerHand: React.SFC<PlayerHandProps> = ({
+export const PlayerHand: React.SFC<PlayerHandProps> = ({
   player,
   isPlaying,
   onTileMouseEnter,
@@ -65,6 +70,7 @@ const withDefaultProps = defaultProps({
 
 const enhance = compose<PlayerHandProps, EnhancedPlayerHandProps>(
   withDefaultProps,
+  withNoRenderWithoutPlayer,
 );
 
 export const EnhancedPlayerHand = enhance(PlayerHand);

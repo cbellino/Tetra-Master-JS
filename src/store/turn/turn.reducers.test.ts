@@ -42,10 +42,9 @@ describe("turnReducer", () => {
           currentPlayerId: "1",
         },
       };
-      const turnState: any = {};
       const action = { type: FINISH_TURN };
 
-      expect(turnReducer(rootState)(turnState, action)).toEqual({
+      expect(turnReducer(rootState)(undefined, action)).toEqual({
         currentPlayerId: "2",
       });
     });

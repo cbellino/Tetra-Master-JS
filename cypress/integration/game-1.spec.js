@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 context("Game 1", () => {
   before(() => {
     cy.visit("http://localhost:3000");

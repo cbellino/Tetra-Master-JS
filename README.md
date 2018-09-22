@@ -1,4 +1,4 @@
-# Tetra Master [![Tetra Master](https://api.travis-ci.com/cbellino/Tetra-Master-JS.svg?branch=master)](https://travis-ci.com/cbellino/Tetra-Master-JS) [![Maintainability](https://api.codeclimate.com/v1/badges/f1083533d8dc0d22e75e/maintainability)](https://codeclimate.com/github/cbellino/Tetra-Master-JS/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f1083533d8dc0d22e75e/test_coverage)](https://codeclimate.com/github/cbellino/Tetra-Master-JS/test_coverage)
+# Tetra Master [![Tetra Master](https://api.travis-ci.com/cbellino/Tetra-Master-JS.svg?branch=master)](https://travis-ci.com/cbellino/Tetra-Master-JS) [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/#/projects/3s1n77/runs) [![Maintainability](https://api.codeclimate.com/v1/badges/f1083533d8dc0d22e75e/maintainability)](https://codeclimate.com/github/cbellino/Tetra-Master-JS/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f1083533d8dc0d22e75e/test_coverage)](https://codeclimate.com/github/cbellino/Tetra-Master-JS/test_coverage)
 
 ## About
 

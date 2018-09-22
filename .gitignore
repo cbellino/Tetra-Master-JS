@@ -31,5 +31,9 @@ firebase-debug.log*
 # Jetbrains suit
 .idea
 
-# firebase
+# Firebase
 .firebase
+
+# Cypress artifacts
+cypress/screenshots
+cypress/videos

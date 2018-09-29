@@ -78,7 +78,7 @@ describe("tryToPlaceTile", () => {
     });
   });
 
-  describe("when player has not tile selected", () => {
+  describe("when player has no tile selected", () => {
     it("should do nothing", () => {
       const store = createMockStore({
         board: {

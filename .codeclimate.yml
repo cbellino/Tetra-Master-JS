@@ -4,6 +4,7 @@ exclude_patterns:
   - "**/*.test.ts"
   - "**/*.test.tsx"
   - "**/*.snap"
+  - "**/cypress"
 
 plugins:
   fixme:

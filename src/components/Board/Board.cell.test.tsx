@@ -17,6 +17,24 @@ describe("Board.Cell", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("should have a className of 'board-cell'", () => {
+    const wrapper = shallow(
+      <Cell cell={mockCell} position={{ x: 1, y: 1 }} />,
+    ).dive();
+
+    expect(wrapper.hasClass("board-cell")).toBeTruthy();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("should have a className containing the position", () => {
+    const wrapper = shallow(
+      <Cell cell={mockCell} position={{ x: 1, y: 1 }} />,
+    ).dive();
+
+    expect(wrapper.hasClass("position-1-1")).toBeTruthy();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it("should react to clicks", () => {
     const onClick = jest.fn();
     const wrapper = shallow(

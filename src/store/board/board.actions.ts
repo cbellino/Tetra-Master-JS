@@ -28,21 +28,28 @@ export const placeTile = (
   payload: { playerId, tileId, position },
 });
 
-export const tryToPlaceTile = (position: Vector2) => (dispatch, getState) => {
-  const canPlaceTile = canPlaceTileAtPosition(position)(getState());
-  const hasTileSelected = currentPlayerHasTileSelected(getState());
+const finishTurnOrGame = (dispatch, state) => {
+  const isGameFinished = checkGameOverConditions(state);
 
-  if (!canPlaceTile || !hasTileSelected) {
-    return;
-  }
-
-  const player = getCurrentPlayer(getState());
-  dispatch(placeTile(player.id, player.selectedTileId, position));
-
-  const isGameFinished = checkGameOverConditions(getState());
   if (isGameFinished) {
     dispatch(finishGame());
   } else {
     dispatch(finishTurn());
   }
+};
+
+const canPlaceTile = (position: Vector2, state) => {
+  return (
+    canPlaceTileAtPosition(position)(state) &&
+    currentPlayerHasTileSelected(state)
+  );
+};
+
+export const tryToPlaceTile = (position: Vector2) => (dispatch, getState) => {
+  if (canPlaceTile(position, getState())) {
+    const player = getCurrentPlayer(getState());
+    dispatch(placeTile(player.id, player.selectedTileId, position));
+  }
+
+  finishTurnOrGame(dispatch, getState());
 };

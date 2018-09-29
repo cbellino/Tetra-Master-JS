@@ -2,7 +2,33 @@
 
 exports[`Board.Cell should display a tile with the correct tileId 1`] = `
 <div
-  className="board-cell"
+  className="board-cell position-1-1"
+  onClick={[Function]}
+  role="button"
+>
+  <Connect(TileCard)
+    playerId="1"
+    tileId="1"
+  />
+</div>
+`;
+
+exports[`Board.Cell should have a className containing the position 1`] = `
+<div
+  className="board-cell position-1-1"
+  onClick={[Function]}
+  role="button"
+>
+  <Connect(TileCard)
+    playerId="1"
+    tileId="1"
+  />
+</div>
+`;
+
+exports[`Board.Cell should have a className of 'board-cell' 1`] = `
+<div
+  className="board-cell position-1-1"
   onClick={[Function]}
   role="button"
 >
@@ -15,7 +41,7 @@ exports[`Board.Cell should display a tile with the correct tileId 1`] = `
 
 exports[`Board.Cell should react to clicks 1`] = `
 <div
-  className="board-cell"
+  className="board-cell position-1-1"
   onClick={[Function]}
   role="button"
 >

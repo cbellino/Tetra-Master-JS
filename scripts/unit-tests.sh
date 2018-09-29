@@ -5,7 +5,10 @@ curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-lin
 chmod +x ./cc-test-reporter
 
 # Run the unit tests
+cd game/
+yarn install
 yarn test:unit
+cd ../
 
 # Upload the results to code climate
 ./cc-test-reporter format-coverage -t lcov -o ./coverage/coverage-code-climate.json ./coverage/lcov.info

@@ -2,7 +2,7 @@ import * as R from "ramda";
 
 import { Grid, Vector2 } from "../../models";
 import { createReducer } from "../createReducer";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 import { INIT_BOARD, PLACE_TILE } from "./board.actions";
 import { boardCellLens, boardGridLens } from "./board.lenses";
 

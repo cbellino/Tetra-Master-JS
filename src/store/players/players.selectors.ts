@@ -2,7 +2,7 @@ import * as R from "ramda";
 
 import { getNext, viewOr } from "../../lib";
 import { Id } from "../../models";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 import { getCurrentPlayerId } from "../turn";
 import {
   allPlayerIdsLens,

@@ -1,4 +1,4 @@
-import rootReducer from "./root.reducer";
+import { rootReducer } from "./root.reducers";
 
 describe("rootReducer", () => {
   describe("empty action", () => {
@@ -9,6 +9,7 @@ describe("rootReducer", () => {
         board: expect.any(Object),
         players: expect.any(Object),
         turn: expect.any(Object),
+        game: expect.any(Object),
       });
     });
   });

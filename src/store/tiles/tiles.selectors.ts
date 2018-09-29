@@ -1,5 +1,5 @@
 import { Id } from "../../models";
-import { RootState } from "../root.reducer";
+import { RootState } from "../root";
 
 // TODO: Move to store/tiles
 // const mockTileTypes = [

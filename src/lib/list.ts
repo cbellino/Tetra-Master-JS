@@ -5,11 +5,13 @@ export const getNext = R.curry((list: any[], item) => {
   return list[nextIndex % list.length];
 });
 
-// TODO: Add unit tests.
 export const addItemsToList = (items: any[]) => (list: any[]) => [
   ...list,
   ...items,
 ];
 
-// TODO: Add unit tests.
 export const addItemToList = (item: any) => addItemsToList([item]);
+
+export const filterItems = (filter: (a: any) => boolean) => (list: any[]) => {
+  return list.filter(filter);
+};

@@ -1,0 +1,25 @@
+service: server # NOTE: Don't put the word "google" in here
+
+app: tetra-master
+tenant: cbellino
+
+provider:
+  name: google
+  runtime: nodejs
+  project: tetra-master-217918
+  credentials: ~/.gcloud/tetra-master-e80a9017ef80.json
+
+plugins:
+  - serverless-google-cloudfunctions
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - .git/**
+
+functions:
+  first:
+    handler: api
+    events:
+      - http: path

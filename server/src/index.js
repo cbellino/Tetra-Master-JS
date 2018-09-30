@@ -1,16 +1,39 @@
 const { ApolloServer, gql } = require("apollo-server-cloud-functions");
 
-// Construct a schema, using GraphQL schema language
+import { getPlayers, getTiles, getTileInstances } from "./api";
+
 const typeDefs = gql`
+  type Player {
+    id: String
+    name: String
+    hand: [String]
+    focusedTileId: String
+    selectedTileId: String
+  }
+
+  type Tile {
+    id: String
+    name: String
+  }
+
+  type TileInstance {
+    id: String
+    tileId: String
+    tile: Tile
+  }
+
   type Query {
-    hello: String
+    players: [Player]
+    tiles: [Tile]
+    tileInstances: [TileInstance]
   }
 `;
 
-// Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    hello: () => "Hello world!",
+    players: getPlayers,
+    tiles: getTiles,
+    tileInstances: getTileInstances,
   },
 };
 

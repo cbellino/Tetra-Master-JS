@@ -18,6 +18,8 @@ jobs:
       name: "End to end tests"
     - script: ./scripts/build-game.sh
       name: "Build game"
+    - script: ./scripts/build-server.sh
+      name: "Build server"
 
 stages:
   - test

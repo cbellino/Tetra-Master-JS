@@ -128,10 +128,27 @@ describe("checkGameOverConditions", () => {
   describe("when no conditions are met", () => {
     it("should return false", () => {
       const rootState: any = {
-        board: { grid: [[{}]] },
+        board: {
+          grid: [[{}, {}], [{}, {}]],
+        },
       };
 
       expect(checkGameOverConditions(rootState)).toBeFalsy();
+    });
+  });
+
+  describe("when at least one condition is met", () => {
+    it("should return true", () => {
+      const rootState: any = {
+        board: {
+          grid: [
+            [{ tileId: "1" }, { tileId: "1" }],
+            [{ tileId: "1" }, { tileId: "1" }],
+          ],
+        },
+      };
+
+      expect(checkGameOverConditions(rootState)).toBeTruthy();
     });
   });
 });

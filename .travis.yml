@@ -13,11 +13,13 @@ jobs:
   include:
     - stage: test
       name: "Unit tests"
-      script: ./scripts/run-unit-tests.sh
-    - script: yarn test:ci
+      script: ./scripts/unit-tests.sh
+    - script: ./scripts/e2e-tests.sh
       name: "End to end tests"
-    - script: yarn build
-      name: "Build app"
+    - script: ./scripts/build-game.sh
+      name: "Build game"
+    - script: ./scripts/build-server.sh
+      name: "Build server"
 
 stages:
   - test

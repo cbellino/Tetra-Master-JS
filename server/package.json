@@ -1,0 +1,29 @@
+{
+  "name": "tetra-master-server",
+  "version": "0.1.0",
+  "main": "build/index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./build",
+    "build": "babel ./src/ --out-dir build/",
+    "start": "yarn build --watch"
+  },
+  "dependencies": {
+    "apollo-server": "^2.1.0",
+    "apollo-server-cloud-functions": "^2.1.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "graphql": "^14.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "serverless-google-cloudfunctions": "^1.2.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

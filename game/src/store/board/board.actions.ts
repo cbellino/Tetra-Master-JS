@@ -46,10 +46,12 @@ const canPlaceTile = (position: Vector2, state) => {
 };
 
 export const tryToPlaceTile = (position: Vector2) => (dispatch, getState) => {
-  if (canPlaceTile(position, getState())) {
-    const player = getCurrentPlayer(getState());
-    dispatch(placeTile(player.id, player.selectedTileId, position));
+  if (!canPlaceTile(position, getState())) {
+    return;
   }
+  
+  const player = getCurrentPlayer(getState());
+  dispatch(placeTile(player.id, player.selectedTileId, position));
 
   finishTurnOrGame(dispatch, getState());
 };
